@@ -13,12 +13,14 @@ OBJECTS := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.o))
 INC = -I include
 
 $(TARGET): $(OBJECTS)
-	echo "Linking..."
-	echo "$(CXX) $^ -o $(TARGET) $(LIB)"; $(CXX) $^ -o $(TARGET) $(LIB)
+	@echo "Linking..."
+	@echo "$(CXX) $^ -o $(TARGET) $(LIB)"
+	$(CXX) $^ -o $(TARGET) $(LIB)
 
 $(BUILDDIR)/%.o: $(SRCDIR)/%.$(SRCEXT)
 	mkdir -p $(BUILDDIR)
-	echo " $(CXX) $(CXXFLAGS) $(INC) -c -o $@ $<"; $(CXX) $(CXXFLAGS) $(INC) -c -o $@ $<
+	@echo " $(CXX) $(CXXFLAGS) $(INC) -c -o $@ $<"
+	$(CXX) $(CXXFLAGS) $(INC) -c -o $@ $<
 
 clean:
 	$(RM) -r $(BUILDDIR) $(TARGET)
