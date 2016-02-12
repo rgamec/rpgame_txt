@@ -1,4 +1,3 @@
-/* Small program to test how to import CSV into a struct array in C++, let's see if this will work. */
 #include <iostream>
 #include <vector>
 #include <fstream>
@@ -7,7 +6,9 @@
 #include "enemies.h"
 
 
-
+/** This function reads the enemies.csv file and returns a struct array of enemy types 
+ * TODO: Add in error-handling for malformed CSV files 
+ * TODO: Read the enemies.csv file from a set folder and not the cwd */
 std::vector<Enemy> load_enemies(){
 
 	std::vector<Enemy> enemies;
@@ -20,9 +21,10 @@ std::vector<Enemy> load_enemies(){
 			std::string cell;
 			std::stringstream enemystring(enemy_string);
 			std::vector<std::string> enemy_properties;
-			 while(std::getline(enemystring,cell,',')){
+			 
+      // For each line in the file, split into cells based on the ',' character
+      while(std::getline(enemystring,cell,',')){
 			 	enemy_properties.push_back(cell);
-				//std::cout << "hm: " << cell << std::endl;
 			}
 
 			// Building an enemy object
@@ -35,10 +37,11 @@ std::vector<Enemy> load_enemies(){
 		}
 		enemiesfile.close();
 	} else {
+    // TODO: Set this to print to stderr
 		std::cout << "Error opening file enemies.csv!" << std::endl;
 	}
 
-
+  // Below output is only for debugging!
 	for (int loop = 0; loop < enemies.size(); loop++){
 		std::cout << "Enemy" << loop << " name: " << enemies[loop].name << std::endl;
 		std::cout << "Enemy" << loop << " base health: " << enemies[loop].base_health << std::endl;
